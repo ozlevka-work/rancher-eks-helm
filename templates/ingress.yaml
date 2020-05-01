@@ -1,3 +1,4 @@
+{{- if .Values.ingress.enabled }}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -41,3 +42,4 @@ spec:
     - {{ .Values.hostname }}
     secretName: tls-rancher-ingress
 {{- end }}
+{{- end -}}

@@ -43,9 +43,14 @@ debug: false
 imagePullSecrets: []
 # - name: secretName
 
+## Use nodeport for rancher rancher TLS is OK.
+service:
+  type: node
+
 ### ingress ###
 # Readme for details and instruction on adding tls secrets.
 ingress:
+  enabled: false
   extraAnnotations:
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
@@ -98,7 +103,7 @@ resources: {}
 #   Where to offload the TLS/SSL encryption
 # - ingress (default)
 # - external
-tls: ingress
+tls: external
 
 systemDefaultRegistry: ""
 

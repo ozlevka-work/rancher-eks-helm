@@ -8,6 +8,21 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
 spec:
+{{- if eq .Values.service.type "node" }}
+  type: NodePort
+  ports:
+  - name: http
+    nodePort: 30080
+    port: 80
+    protocol: TCP
+    name: http
+  - nodePort: 30443
+    port: 443
+    protocol: TCP
+    name: https
+  selector:
+    app: {{ template "rancher.fullname" . }}
+{{- else -}}  
   ports:
   - port: 80
     targetPort: 80
@@ -15,3 +30,4 @@ spec:
     name: http
   selector:
     app: {{ template "rancher.fullname" . }}
+{{- end -}}
